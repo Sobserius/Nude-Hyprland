@@ -1,0 +1,8 @@
+[global]
+background="#1f1f2a"
+foreground="#bdc3df"
+width= 300
+font = Monospace 11
+frame_width = 2
+offset = (10, 10)
+frame_color="#bdc3df"
