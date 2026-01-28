@@ -11,14 +11,14 @@ sync_theme() {
     SRC="$COLOR_FILE"
     [ ! -f "$SRC" ] && return
 
-    # Clean extraction for variables
+    
     BG=$(grep -i "^background" "$SRC" | awk '{print $NF}' | tr -d "[:space:]:\"'" | sed 's/#//g')
     FG=$(grep -i "^foreground" "$SRC" | awk '{print $NF}' | tr -d "[:space:]:\"'" | sed 's/#//g')
 
     # --- KITTY UPDATE ---
 	cp "$COLOR_FILE" "$HOME/.config/kitty/current-theme.conf"
 	killall -USR1 kitty
-    # --- HYPRLAND BORDERS (Your Method) ---
+    # --- HYPRLAND BORDERS ---
     cat > ~/.config/hypr/colors.conf <<EOF
 misc {
     background_color = 0xff${BG}
