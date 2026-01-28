@@ -7,7 +7,7 @@ j4-dmenu-desktop
 kvantum adw-gtk3 qt5ct                        
 
 # To install the rice, run inside the folder command and then reboot:
-mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst && cp color.sh ~/.config/themes/tools/ && cp colors.conf ~/.config/themes/ && cp dashboard.sh ~/.config/dash/ && cp hypridle.conf ~/.config/hypr/ && cp hyprland.conf ~/.config/hypr/ && cp hyprock-colors.conf ~/.config/hypr/hyprlock-colors.conf && cp hyprock.conf ~/.config/hypr/hyprlock.conf && cp launcher.sh ~/.config/dash/ && cp picker.sh ~/.config/themes/tools/ && cp preview.sh ~/.config/themes/tools/ && cp screenshot.sh ~/.config/dash/ && cp sync.sh ~/.config/themes/tools/ && chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh
+mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst && cp color.sh ~/.config/themes/tools/ && cp colors.conf ~/.config/themes/ && cp dashboard.sh ~/.config/dash/ && cp hypridle.conf ~/.config/hypr/ && cp hyprland.conf ~/.config/hypr/ && cp hyprlock-colors.conf ~/.config/hypr/hyprlock-colors.conf && cp hyplrock.conf ~/.config/hypr/hyprlock.conf && cp launcher.sh ~/.config/dash/ && cp picker.sh ~/.config/themes/tools/ && cp preview.sh ~/.config/themes/tools/ && cp screenshot.sh ~/.config/dash/ && cp sync.sh ~/.config/themes/tools/ && chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh
 
 # Desktop itself:
 <img width="1920" height="1198" alt="image" src="https://github.com/user-attachments/assets/82625d7d-2540-4f0d-a3b1-1fdd64711e3c" />
