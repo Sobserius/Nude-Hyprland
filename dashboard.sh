@@ -99,7 +99,7 @@ fi
         3) (nohup hyprctl dispatch exec "[workspace f+0] sleep 0.3 && /home/$USER/.config/dash/screenshot.sh" >/dev/null 2>&1 &); sleep 0.1; cleanup ;;        
         4) echo -e "\n  [ 1.SHUTDOWN  2.REBOOT  3.LOGOUT  4.LOCK  0.BACK ]"
            read -rsn1 p_input
-           case "$p_input" in 1) systemctl poweroff ;; 2) systemctl reboot ;; 3) loginctl terminate-user "$USER" ;; 4) nohup hyprlock >/dev/null 2>&1 & exit  ;; *) clear ;;  esac ;;
+           case "$p_input" in 1) systemctl poweroff ;; 2) systemctl reboot ;; 3) loginctl terminate-user "$USER" ;; 4) (nohup hyprlock >/dev/null 2>&1 &) & exit  ;; *) clear ;;  esac ;;
 #        5) tput cnorm  
 #           RAW_CMD2=$($HOME/.config/themes/color.sh)
 #   if [ -n "$RAW_CMD2" ]; then
