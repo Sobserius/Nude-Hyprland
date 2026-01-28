@@ -1,5 +1,5 @@
 # These are dependencies used in the rice:
-hyprland kitty dunst waybar fzf jq inotify-tools imagemagick swww grim slurp hyprpicker wl-clipboard playerctl brightnessctl j4-dmenu-desktop kvantum adw-gtk3 qt5ct
+```hyprland kitty dunst waybar fzf jq inotify-tools imagemagick swww grim slurp hyprpicker wl-clipboard playerctl brightnessctl j4-dmenu-desktop kvantum adw-gtk3 qt5ct```
 
 You can install dependencies on arch with this command:
 ```console
