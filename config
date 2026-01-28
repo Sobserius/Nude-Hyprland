@@ -1,0 +1,49 @@
+{
+    "layer": "bottom",
+    "reload_style_on_change": true,
+    "modules-left": ["custom/launcher", "hyprland/workspaces"],
+    "modules-center": [ "clock", "hyprland/language" ],
+    "modules-right": ["tray", "network", "wireplumber", "battery"],
+
+    "custom/prompt": {
+        "format": "user@hyprland:~$ "
+    },
+    "hyprland/workspaces": {
+        "format": "[{name}]",
+        "persistent-workspaces": { "*": 5 }
+    },
+    "network": {
+        "format-wifi": "net: {essid}",
+        "format-disconnected": "net: down"
+    },
+    "bluetooth": {
+        "format": "bt: {status}",
+        "format-connected": "bt: {device_alias}"
+    },
+   "wireplumber": {
+        "format": "vol: {volume}%",
+        "format-muted": "vol: MUTED",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "tooltip-format": "Volume: {volume}%\nMuted: {mute}"
+    },
+
+    "battery": {
+        "format": "bat: {capacity}%"
+    },
+
+    "hyprland/language": {
+        "format": "{}"
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip": false
+    },
+
+
+    "custom/launcher": {
+        "format": "○",
+        "on-click": "if hyprctl clients | grep -q 'class: dash-box'; then hyprctl dispatch closewindow class:dash-box; else ~/.config/dash/launcher.sh; fi",
+        "tooltip": false
+    }
+
+}
