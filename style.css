@@ -1,0 +1,46 @@
+@import "colors.css";
+
+* {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 15px;
+    border-radius: 0;
+    border: none;
+}
+
+window#waybar {
+    background-color: @bg;
+    color: @fg;
+    border-bottom: 2px solid @fg;
+}
+
+#custom-launcher {
+    padding: 0 15px;
+    color: @fg;
+    font-size: 20px;
+}
+
+#workspaces button {
+    color: @fg;
+    padding: 0 5px;
+}
+
+#workspaces button.active {
+    background-color: @fg;
+    color: @bg;
+}
+
+#workspaces button:hover {
+    background-color: @fg;
+    transition: all 0;
+    color: @bg;
+}
+
+#custom-launcher:hover {
+    background-color: @fg;
+    color: @bg;
+}
+
+#network, #bluetooth, #wireplumber, #battery, #language {
+    padding: 0 10px;
+    color: @fg;
+}
