@@ -6,7 +6,7 @@ Arch Linux example:
 sudo pacman -S hyprland kitty dunst waybar fzf jq inotify-tools imagemagick swww grim slurp hyprpicker wl-clipboard playerctl brightnessctl j4-dmenu-desktop kvantum  qt5ct adw-gtk-theme
 ```
 
-Installation:
+# Installation:
 > [!CAUTION]
 > The following script overwrites existing hyprland.conf, dunstrc and waybar files. Backup before proceeding.
 
