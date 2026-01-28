@@ -19,6 +19,7 @@ And overwrites:
 ```~/.config/dunst/dunstrc```
 ```~/.config/hypr/*```
 
+Themes are saved at ~/.config/themes/palettes. I recommend you to use <span style="color: blue;">https://github.com/dexpota/kitty-themes/blob/master/themes/Pro.conf </span>
 
 # Desktop itself:
 <img width="1920" height="1198" alt="image" src="https://github.com/user-attachments/assets/82625d7d-2540-4f0d-a3b1-1fdd64711e3c" />
