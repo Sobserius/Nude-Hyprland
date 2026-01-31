@@ -22,7 +22,7 @@ Main scripts/configs deployed to:
 ```~/.config/dash/*```
 ```~/.config/waybar/*```
 
-Colorschemes are stored at ~/.config/themes/palettes. Waybar configurations are stored at /home/sob/.config/waybar/configs.
+Colorschemes are stored at ```~/.config/themes/palettes```. Waybar configurations are stored at ```~/.config/waybar/configs```.
 Recommended kitty themes archive for additional colorschemes: https://github.com/dexpota/kitty-themes 
 > [!NOTE]
 > Currently, there is no universal method for applying Qt color schemes; therefore, this version of the dotfiles does not automate Qt theming.
