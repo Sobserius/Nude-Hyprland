@@ -36,6 +36,8 @@ Recommended kitty themes archive for additional colorschemes: https://github.com
 
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/6115f3cb-4aaa-4bb0-b055-395bd8f2e261" />
 
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/eb893f7e-99be-4c03-b18e-3ffb874a1fcb" />
+
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/4fa6fc85-31b2-475f-82cf-d50add4283b2" />
 
 
