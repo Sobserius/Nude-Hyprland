@@ -28,7 +28,10 @@ Recommended kitty themes archive: https://github.com/dexpota/kitty-themes
 > Currently, there is no universal method for applying Qt color schemes; therefore, this version of the dotfiles does not automate Qt theming.
 
 # Desktop preview:
-<img width="1920" height="1198" alt="image" src="https://github.com/user-attachments/assets/82625d7d-2540-4f0d-a3b1-1fdd64711e3c" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/31198413-1c1f-46f0-9dd2-7bc1a6e1cc7e" />
+
+<img width="1916" height="1200" alt="image" src="https://github.com/user-attachments/assets/e23aadae-9312-465c-9d70-b52dac30f153" />
+
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/4fa6fc85-31b2-475f-82cf-d50add4283b2" />
 
 
