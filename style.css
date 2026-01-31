@@ -40,7 +40,7 @@ window#waybar {
     color: @bg;
 }
 
-#network, #bluetooth, #wireplumber, #battery, #language {
+#network, #cpu, #memory, #backlight, #bluetooth, #wireplumber, #battery, #language {
     padding: 0 10px;
     color: @fg;
 }
