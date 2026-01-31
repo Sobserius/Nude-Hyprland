@@ -42,7 +42,6 @@ if [[ "$FIRST_CHAR" =~ [89a-fA-F] ]]; then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
     flatpak override --user --env=GTK_THEME=adw-gtk3
     
-    kvantummanager --set KvFlatLight
     dbus-send --session --dest=org.freedesktop.portal.Desktop --type=method_call /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
 else
     # DARK MODE
@@ -50,7 +49,6 @@ else
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
     flatpak override --user --env=GTK_THEME=adw-gtk3-dark
     
-    kvantummanager --set KvFlat
     dbus-send --session --dest=org.freedesktop.portal.Desktop --type=method_call /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme'
 fi
 
