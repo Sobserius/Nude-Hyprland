@@ -16,14 +16,14 @@ mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst ~/
 > [!NOTE]
 >  Reboot required after execution.
 
-Scripts/Configs deployed to:
+Main scripts/configs deployed to:
 ```~/.config/themes/*```
 ```~/.config/hypr/*```
 ```~/.config/dash/*```
+```~/.config/waybar/*```
 
-
-Themes are stored at ~/.config/themes/palettes. 
-Recommended kitty themes archive: https://github.com/dexpota/kitty-themes 
+Colorschemes are stored at ~/.config/themes/palettes. Waybar configurations are stored at /home/sob/.config/waybar/configs.
+Recommended kitty themes archive for additional colorschemes: https://github.com/dexpota/kitty-themes 
 > [!NOTE]
 > Currently, there is no universal method for applying Qt color schemes; therefore, this version of the dotfiles does not automate Qt theming.
 
