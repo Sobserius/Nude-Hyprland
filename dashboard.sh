@@ -82,11 +82,10 @@ fi
                   bash "$HOME/.config/themes/tools/picker.sh"
                   STATUS=$?
                   if [ $STATUS -eq 0 ]; then
-                      cleanup
+                      cleanup ;;
                   else
                       clear
-                      tput civis
-                  fi ;;
+                      tput civis ;;
                *) clear ;;
            esac ;;
         0|q) cleanup ;;
