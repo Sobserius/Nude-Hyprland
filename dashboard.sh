@@ -78,10 +78,7 @@ fi
            read -rsn1 p_input
            case "$p_input" in 1) systemctl poweroff ;; 2) systemctl reboot ;; 3) loginctl terminate-user "$USER" ;; 4) nohup hyprlock & cleanup   ;; *) clear ;;  esac ;;
 
-        5) echo -e "\n  [ 1.COLORS 2.WAYBARS 0.BACK ]"
-           read -rsn1 p_input
-           case "$p_input" in 
-               1) tput cnorm
+        5) tput cnorm
                   bash "$HOME/.config/themes/tools/picker.sh"
                   STATUS=$?
                   if [ $STATUS -eq 0 ]; then
@@ -90,11 +87,6 @@ fi
                       clear
                       tput civis
                   fi ;;
-               2) tput cnorm
-                  bash "$HOME/.config/waybar/barmanager.sh"
-                  clear
-                  tput civis ;;
-               0) clear ;;
                *) clear ;;
            esac ;;
         0|q) cleanup ;;
