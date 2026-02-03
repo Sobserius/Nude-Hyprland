@@ -1,4 +1,3 @@
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
 # Dependencies:
 ```hyprland kitty dunst waybar fzf jq inotify-tools imagemagick swww grim slurp hyprpicker hyprlock wl-clipboard playerctl brightnessctl j4-dmenu-desktop adw-gtk3```
 
