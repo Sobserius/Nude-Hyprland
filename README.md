@@ -40,4 +40,4 @@ Recommended kitty themes archive for additional colorschemes: https://github.com
 https://github.com/user-attachments/assets/26040689-ac2f-4ef9-84dc-c8ccba70d909
 
 # License:
-![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![License](https://img.shields.io/badge/License-MIT-blue.svg)]
