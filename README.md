@@ -1,3 +1,4 @@
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
 # Dependencies:
 ```hyprland kitty dunst waybar fzf jq inotify-tools imagemagick swww grim slurp hyprpicker hyprlock wl-clipboard playerctl brightnessctl j4-dmenu-desktop adw-gtk3```
 
@@ -39,5 +40,4 @@ Recommended kitty themes archive for additional colorschemes: https://github.com
 
 https://github.com/user-attachments/assets/26040689-ac2f-4ef9-84dc-c8ccba70d909
 
-# License:
-![License](https://img.shields.io/badge/License-MIT-blue.svg)]
+
