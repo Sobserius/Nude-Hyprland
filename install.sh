@@ -15,17 +15,17 @@ set -e
 WORKSPACE=$(mktemp -d)
 cd "$WORKSPACE"
 
-echo "\nInstalling Rice..."
+echo "Installing Rice..."
 
 git clone --quiet --depth 1 --branch Pastel-Integrated \
     https://github.com/Sobserius/Nude-Hyprland.git source_files
 
 cd source_files
 
-echo "\nCreating folders..."
+echo "Creating folders..."
 mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst ~/.config/waybar
 
-echo "\nCopying files..."
+echo "Copying files..."
 cp colors.conf ~/.config/themes/ 2>/dev/null || true
 cp dashboard.sh ~/.config/dash/ 2>/dev/null || true
 cp hypridle.conf ~/.config/hypr/ 2>/dev/null || true
