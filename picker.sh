@@ -26,12 +26,12 @@ show_preview() {
 }
 export -f show_preview
 
-if [ ! -d "$WALLPAPER_DIR" ] || [ -z "$(find "$WALLPAPER_DIR" -maxdepth 1 -name '*.jpg' -o -name '*.png' 2>/dev/null | head -1)" ]; then
+if [ ! -d "$WALLPAPER_DIR" ] || [ -z "$(find "$WALLPAPER_DIR" -maxdepth 1 \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' \) 2>/dev/null | head -1)" ]; then
     echo "No wallpapers found"
     exit 1
 fi
 
-CHOICE=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -name "*.jpg" -o -name "*.png" \) 2>/dev/null | \
+CHOICE=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) 2>/dev/null | \
     xargs -n1 basename | \
     fzf --reverse --no-sort --info=hidden --prompt="WALLPAPER > " \
         --preview="bash -c 'show_preview $WALLPAPER_DIR/{}'" \
