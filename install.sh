@@ -74,25 +74,16 @@ echo "3) Skip Waybar setup"
 echo -n "Enter choice [1-3]: "
 read waybar_choice
 
-# Function to create Waybar config based on language choice
-create_waybar_config() {
-    local is_bilingual=$1
-    local config_type=$2
-    
-    if [ "$config_type" = "laptop" ]; then
+# Create Waybar config based on choices
+if [ "$waybar_choice" = "1" ]; then
+    if [ "$lang_choice" = "2" ]; then
+        echo "Configuring Waybar for Laptop (bilingual)..."
         cat > ~/.config/waybar/config << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
     "modules-left": ["custom/launcher", "hyprland/workspaces"],
-    "modules-center": [ "clock"EOF
-        
-        if [ "$is_bilingual" = "yes" ]; then
-            echo '    , "hyprland/language"' >> ~/.config/waybar/config
-        fi
-        
-        cat >> ~/.config/waybar/config << 'EOF'
-    ],
+    "modules-center": [ "clock", "hyprland/language" ],
     "modules-right": ["tray", "network", "wireplumber", "battery"],
 
     "custom/prompt": {
@@ -120,18 +111,10 @@ create_waybar_config() {
     "battery": {
         "format": "bat: {capacity}%"
     },
-EOF
-        
-        if [ "$is_bilingual" = "yes" ]; then
-            cat >> ~/.config/waybar/config << 'EOF'
 
     "hyprland/language": {
         "format": "{}"
     },
-EOF
-        fi
-        
-        cat >> ~/.config/waybar/config << 'EOF'
     "clock": {
         "format": "{:%H:%M}",
         "tooltip": false
@@ -145,20 +128,63 @@ EOF
 }
 EOF
     else
-        # Desktop PC configuration
+        echo "Configuring Waybar for Laptop (monolingual)..."
         cat > ~/.config/waybar/config << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
     "modules-left": ["custom/launcher", "hyprland/workspaces"],
-    "modules-center": [ "clock"EOF
-        
-        if [ "$is_bilingual" = "yes" ]; then
-            echo '    , "hyprland/language"' >> ~/.config/waybar/config
-        fi
-        
-        cat >> ~/.config/waybar/config << 'EOF'
-    ],
+    "modules-center": [ "clock" ],
+    "modules-right": ["tray", "network", "wireplumber", "battery"],
+
+    "custom/prompt": {
+        "format": "user@hyprland:~$ "
+    },
+    "hyprland/workspaces": {
+        "format": "[{name}]",
+        "persistent-workspaces": { "*": 5 }
+    },
+    "network": {
+        "format-wifi": "net: {essid}",
+        "format-disconnected": "net: down"
+    },
+    "bluetooth": {
+        "format": "bt: {status}",
+        "format-connected": "bt: {device_alias}"
+    },
+   "wireplumber": {
+        "format": "vol: {volume}%",
+        "format-muted": "vol: MUTED",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "tooltip-format": "Volume: {volume}%\nMuted: {mute}"
+    },
+
+    "battery": {
+        "format": "bat: {capacity}%"
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip": false
+    },
+
+    "custom/launcher": {
+        "format": "○",
+        "on-click": "if hyprctl clients | grep -q 'class: dash-box'; then hyprctl dispatch closewindow class:dash-box; else ~/.config/dash/launcher.sh; fi",
+        "tooltip": false
+    }
+}
+EOF
+    fi
+elif [ "$waybar_choice" = "2" ]; then
+    if [ "$lang_choice" = "2" ]; then
+        echo "Configuring Waybar for Desktop PC (bilingual)..."
+        cat > ~/.config/waybar/config << 'EOF'
+{
+    "layer": "bottom",
+    "reload_style_on_change": true,
+    "modules-left": ["custom/launcher", "hyprland/workspaces"],
+    "modules-center": [ "clock", "hyprland/language" ],
     "modules-right": ["tray", "memory", "cpu", "wireplumber"],
 
     "custom/prompt": {
@@ -190,18 +216,10 @@ EOF
     "memory": {
         "format": "mem: {}%"
     },
-EOF
-        
-        if [ "$is_bilingual" = "yes" ]; then
-            cat >> ~/.config/waybar/config << 'EOF'
 
     "hyprland/language": {
         "format": "{}"
     },
-EOF
-        fi
-        
-        cat >> ~/.config/waybar/config << 'EOF'
     "clock": {
         "format": "{:%H:%M}",
         "tooltip": false
@@ -214,23 +232,58 @@ EOF
     }
 }
 EOF
-    fi
-}
+    else
+        echo "Configuring Waybar for Desktop PC (monolingual)..."
+        cat > ~/.config/waybar/config << 'EOF'
+{
+    "layer": "bottom",
+    "reload_style_on_change": true,
+    "modules-left": ["custom/launcher", "hyprland/workspaces"],
+    "modules-center": [ "clock" ],
+    "modules-right": ["tray", "memory", "cpu", "wireplumber"],
 
-# Create Waybar config based on choices
-if [ "$waybar_choice" = "1" ]; then
-    echo "Configuring Waybar for Laptop..."
-    if [ "$lang_choice" = "2" ]; then
-        create_waybar_config "yes" "laptop"
-    else
-        create_waybar_config "no" "laptop"
-    fi
-elif [ "$waybar_choice" = "2" ]; then
-    echo "Configuring Waybar for Desktop PC..."
-    if [ "$lang_choice" = "2" ]; then
-        create_waybar_config "yes" "desktop"
-    else
-        create_waybar_config "no" "desktop"
+    "custom/prompt": {
+        "format": "user@hyprland:~$ "
+    },
+    "hyprland/workspaces": {
+        "format": "[{name}]",
+        "persistent-workspaces": { "*": 5 }
+    },
+    "network": {
+        "format-wifi": "net: {essid}",
+        "format-disconnected": "net: down"
+    },
+    "bluetooth": {
+        "format": "bt: {status}",
+        "format-connected": "bt: {device_alias}"
+    },
+   "wireplumber": {
+        "format": "vol: {volume}%",
+        "format-muted": "vol: MUTED",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "tooltip-format": "Volume: {volume}%\nMuted: {mute}"
+    },
+
+    "cpu": {
+        "format": "cpu: {}%"
+    },
+
+    "memory": {
+        "format": "mem: {}%"
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip": false
+    },
+
+    "custom/launcher": {
+        "format": "○",
+        "on-click": "if hyprctl clients | grep -q 'class: dash-box'; then hyprctl dispatch closewindow class:dash-box; else ~/.config/dash/launcher.sh; fi",
+        "tooltip": false
+    }
+}
+EOF
     fi
 else
     echo "Skipping Waybar configuration..."
