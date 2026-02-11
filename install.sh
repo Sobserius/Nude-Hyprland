@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
 
-# ----------------------------------------------------------------------
-# UTILITY FUNCTIONS
-# ----------------------------------------------------------------------
+
 die() {
     echo "ERROR: $1" >&2
     exit 1
@@ -28,9 +26,7 @@ safe_write_script() {
     chmod 755 "$file"
 }
 
-# ----------------------------------------------------------------------
-# INITIAL PROMPT
-# ----------------------------------------------------------------------
+
 clear
 read -p "Continue with installation? (y/N): " -n 1 -r
 echo
@@ -54,9 +50,7 @@ git clone --quiet --depth 1 --branch Pastel-Integrated \
 
 cd source_files
 
-# ----------------------------------------------------------------------
-# CREATE DIRECTORY STRUCTURE WITH PROPER PERMISSIONS
-# ----------------------------------------------------------------------
+
 echo "Creating folders..."
 safe_mkdir ~/.config/themes/tools
 safe_mkdir ~/.config/dash
@@ -64,19 +58,16 @@ safe_mkdir ~/.config/hypr
 safe_mkdir ~/.config/dunst
 safe_mkdir ~/.config/waybar
 
-# ----------------------------------------------------------------------
-# HYPRIAND.CONF CONFIGURATION – SKIPPABLE
-# ----------------------------------------------------------------------
+
 echo ""
 echo "Hyprland Configuration"
 echo "Do you want to install / update hyprland.conf?"
-echo "1) Yes – configure keyboard layout (recommended for new installs)"
-echo "2) No  – keep existing hyprland.conf (skip completely)"
+echo "1) Yes – configure keyboard layout"
+echo "2) No  – keep existing hyprland.conf"
 echo -n "Enter choice [1-2]: "
 read hypr_choice
 
 if [ "$hypr_choice" = "1" ]; then
-    # Keyboard layout configuration
     echo ""
     echo "Keyboard Layout Configuration"
     echo "1) Single layout (monolingual)"
@@ -119,14 +110,10 @@ kb_options = $kb_options" \
     fi
 else
     echo "Skipping hyprland.conf configuration. Keeping existing file."
-    layouts_count=1  # default to monolingual for Waybar (user can still have multiple layouts, but we don't know)
-    # We don't know the user's actual layout count, so we default to monolingual in Waybar.
-    # Advanced users can edit Waybar config manually.
+    layouts_count=1  
 fi
 
-# ----------------------------------------------------------------------
-# COPY ALL OTHER CONFIGURATION FILES (except hyprland.conf)
-# ----------------------------------------------------------------------
+
 echo "Copying other configuration files..."
 
 copy_if_exists() {
@@ -150,12 +137,8 @@ copy_if_exists screenshot.sh ~/.config/dash/
 copy_if_exists config ~/.config/waybar/
 copy_if_exists sync.sh ~/.config/themes/tools/
 
-# Make scripts executable
 chmod 755 ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 2>/dev/null || true
 
-# ----------------------------------------------------------------------
-# WAYBAR CONFIGURATION SELECTION
-# ----------------------------------------------------------------------
 echo ""
 echo "Select Waybar configuration:"
 echo "1) Laptop (with battery monitoring)"
@@ -165,9 +148,7 @@ echo -n "Enter choice [1-3]: "
 read waybar_choice
 
 if [ "$waybar_choice" = "1" ] || [ "$waybar_choice" = "2" ]; then
-    # ------------------------------------------------------------------
-    # DEPLOY WAYBAR STYLE.CSS
-    # ------------------------------------------------------------------
+  
     echo "Deploying Waybar style.css..."
     safe_write ~/.config/waybar/style.css "$(cat << 'EOF'
 @import "colors.css";
@@ -219,11 +200,7 @@ window#waybar {
 EOF
 )"
 
-    # ------------------------------------------------------------------
-    # DEPLOY WAYBAR CONFIG (with correct language module)
-    # ------------------------------------------------------------------
     if [ "$waybar_choice" = "1" ]; then
-        # Laptop
         if [ "$layouts_count" -gt 1 ]; then
             echo "Configuring Waybar for Laptop (multilingual)..."
             safe_write ~/.config/waybar/config "$(cat << 'EOF'
@@ -319,7 +296,6 @@ EOF
 )"
         fi
     else
-        # Desktop PC
         if [ "$layouts_count" -gt 1 ]; then
             echo "Configuring Waybar for Desktop PC (multilingual)..."
             safe_write ~/.config/waybar/config "$(cat << 'EOF'
@@ -422,7 +398,6 @@ EOF
         fi
     fi
 
-    # Restart Waybar if running
     if pgrep -x "waybar" > /dev/null; then
         killall -SIGUSR2 waybar 2>/dev/null || true
     fi
@@ -430,9 +405,6 @@ else
     echo "Skipping Waybar configuration..."
 fi
 
-# ----------------------------------------------------------------------
-# CLEANUP
-# ----------------------------------------------------------------------
 cd /
 rm -rf "$WORKSPACE"
 
