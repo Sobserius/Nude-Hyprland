@@ -2,7 +2,9 @@
 set -e
 clear && sleep 0.5
 read -p "Continue? (y/N): " -n 1 -r
-clear ** sleep 0.5
+
+
+clear && sleep 0.5
 echo "===================================================="
 echo "Nude-Hyprland Installation"
 echo "===================================================="
