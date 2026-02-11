@@ -19,7 +19,7 @@ show_preview() {
     echo -e "\n"
     echo -ne "  "
     for hex in $colors; do
-        printf " \e[48;2;%d;%d;%dm  " 0x${hex:0:2} 0x${hex:2:2} 0x${hex:4:2}
+        printf "\e[48;2;%d;%d;%dm  " 0x${hex:0:2} 0x${hex:2:2} 0x${hex:4:2}
     done
     echo -e "\e[0m"
     rm -f "$tmp_img"
