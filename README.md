@@ -20,9 +20,7 @@ Main scripts/configs deployed to:
 ```~/.config/themes/*```
 ```~/.config/hypr/*```
 
-Colorschemes are stored at ```~/.config/themes/palettes```.
-Recommended kitty themes archive for additional colorschemes: https://github.com/dexpota/kitty-themes 
-> [!NOTE]
+Wallpapers are stored at ```~/Wallpapers```.
 > Currently, there is no universal method for applying Qt color schemes; therefore, this version of the dotfiles does not automate Qt theming.
 
 # Desktop preview:
