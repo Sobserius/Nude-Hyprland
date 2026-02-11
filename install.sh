@@ -163,7 +163,6 @@ EOF
         ;;
 esac
 
-killall -SIGUSR2 waybar
 chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 2>/dev/null || true
 
 cd /
@@ -172,3 +171,5 @@ echo "File deployment is complete."
 echo ""
 echo "Note: System dependencies are not installed by this script."
 echo "A system reboot is recommended before starting Hyprland."
+killall -SIGUSR2 waybar
+
