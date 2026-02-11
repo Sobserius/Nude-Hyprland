@@ -1,39 +1,39 @@
 #!/bin/bash
 set -e
-
+clear
 echo "Nude-Hyprland Installation"
 echo "===================================================="
 
+#!/bin/bash
+set -e
+
 WORKSPACE=$(mktemp -d)
 cd "$WORKSPACE"
-   if ! git clone --depth 1 --branch Pastel-Integrated \
-        https://github.com/Sobserius/Nude-Hyprland.git . > /dev/null 2>&1; then
-        error "Failed to download files. Check your internet or the branch name."
-        exit 1
-    fi
+
+git clone --quiet --depth 1 --branch Pastel-Integrated \
+    https://github.com/Sobserius/Nude-Hyprland.git source_files
+
+cd source_files
 
 mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst ~/.config/waybar
 
-echo "Deploying configuration files..."
-cp dashboard.sh ~/.config/dash/
-cp hypridle.conf ~/.config/hypr/
-cp hyprland.conf ~/.config/hypr/
-cp hyprlock-colors.conf ~/.config/hypr/
-cp hyprlock.conf ~/.config/hypr/
-cp launcher.sh ~/.config/dash/
-cp picker.sh ~/.config/themes/tools/
-cp style.css ~/.config/waybar/
-cp screenshot.sh ~/.config/dash/
-cp config ~/.config/waybar/
-cp sync.sh ~/.config/themes/tools/
+cp colors.conf ~/.config/themes/ 2>/dev/null || true
+cp dashboard.sh ~/.config/dash/ 2>/dev/null || true
+cp hypridle.conf ~/.config/hypr/ 2>/dev/null || true
+cp hyprland.conf ~/.config/hypr/ 2>/dev/null || true
+cp hyprlock-colors.conf ~/.config/hypr/ 2>/dev/null || true
+cp hyprlock.conf ~/.config/hypr/ 2>/dev/null || true
+cp launcher.sh ~/.config/dash/ 2>/dev/null || true
+cp picker.sh ~/.config/themes/tools/ 2>/dev/null || true
+cp style.css ~/.config/waybar/ 2>/dev/null || true
+cp screenshot.sh ~/.config/dash/ 2>/dev/null || true
+cp config ~/.config/waybar/ 2>/dev/null || true
+cp sync.sh ~/.config/themes/tools/ 2>/dev/null || true
 
-echo "Setting script permissions..."
-chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh
+chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 2>/dev/null || true
 
-# Cleanup the temporary workspace.
 cd /
 rm -rf "$WORKSPACE"
-
 echo "File deployment is complete."
 echo ""
 echo "Note: System dependencies are not installed by this script."
