@@ -30,7 +30,7 @@ Main scripts/configs deployed to:
 ```~/.config/hypr/*```
 
 Wallpapers are stored at ```~/Wallpapers```.
-> Currently, there is no universal method for applying Qt color schemes; therefore, this version of the dotfiles does not automate Qt theming.
+> Currently, there is no universal method for applying Qt color schemes; this version of dotfiles uses environmental variable for platform theme in hyprland.conf.
 
 # Desktop preview:
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/751b8c83-c482-440e-8784-4248cc011111" />
