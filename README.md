@@ -10,8 +10,7 @@ adw-gtk-theme chafa pastel
 ```
 Fedora|Rhel|CentOS example:
 ```console
-sudo dnf install -y \
-    hyprland kitty dunst waybar fzf jq inotify-tools \
+sudo dnf install -y hyprland kitty dunst waybar fzf jq inotify-tools \
     ImageMagick swww grim slurp hyprpicker hyprlock \
     wl-clipboard playerctl brightnessctl j4-dmenu-desktop \
     adw-gtk3-theme chafa pastel
