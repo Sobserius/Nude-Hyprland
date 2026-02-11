@@ -20,7 +20,7 @@ sudo dnf install -y hyprland kitty dunst waybar fzf jq inotify-tools \
 > The following script overwrites existing hyprland.conf, dunstrc and waybar files. Backup before proceeding.
 
 ```console
-mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst ~/.config/waybar && cp colors.conf ~/.config/themes/ && cp dashboard.sh ~/.config/dash/ && cp hypridle.conf ~/.config/hypr/ && cp hyprland.conf ~/.config/hypr/ && cp hyprlock-colors.conf ~/.config/hypr/hyprlock-colors.conf && cp hyprlock.conf ~/.config/hypr/hyprlock.conf && cp launcher.sh ~/.config/dash/ && cp picker.sh ~/.config/themes/tools/ && cp style.css ~/.config/waybar/  && cp screenshot.sh ~/.config/dash/ && cp config ~/.config/waybar/ && cp sync.sh ~/.config/themes/tools/ && chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 
+bash <(curl -s "https://raw.githubusercontent.com/Sobserius/Nude-Hyprland/Pastel-Integrated/install.sh?t=$(date +%s)")
 ```
 > [!NOTE]
 >  Reboot required after execution.
