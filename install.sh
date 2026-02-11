@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
-clear
+clear && sleep 0.5
+read -p "Continue? (y/N): " -n 1 -r
+
 echo "===================================================="
 echo "Nude-Hyprland Installation"
 echo "===================================================="
