@@ -163,7 +163,7 @@ EOF
         ;;
 esac
 
-
+killall -SIGUSR2 waybar
 chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 2>/dev/null || true
 
 cd /
