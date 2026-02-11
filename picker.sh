@@ -21,7 +21,7 @@ show_preview() {
     echo -e "\n"
     echo -ne "  "
     for hex in $colors; do
-        printf    "\e[48;2;%d;%d;%dm  "  0x${hex:0:2} 0x${hex:2:2} 0x${hex:4:2}
+        printf    " \e[48;2;%d;%d;%dm  "  0x${hex:0:2} 0x${hex:2:2} 0x${hex:4:2}
     done
     rm -f "$tmp_img"
 }
@@ -30,13 +30,12 @@ export -f show_preview
 
 if [ ! -d "$WALLPAPER_DIR" ] || [ -z "$(find "$WALLPAPER_DIR" -maxdepth 1 -name '*.jpg' -o -name '*.png' 2>/dev/null | head -1)" ]; then
     echo "No wallpapers found"
-    sleep 0.5
     exit 1
 fi
 
 CHOICE=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -name "*.jpg" -o -name "*.png" \) 2>/dev/null | \
     xargs -n1 basename | \
-    fzf --reverse --no-sort --info=hidden --prompt="CHOOSE > " \
+    fzf --reverse --no-sort --info=hidden --prompt="WALLPAPER > " \
         --preview="bash -c 'show_preview $WALLPAPER_DIR/{}'" \
         --preview-window="right:50%:border-left")
 
