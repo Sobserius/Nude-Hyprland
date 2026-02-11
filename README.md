@@ -24,10 +24,6 @@ Wallpapers are stored at ```~/Wallpapers```.
 > Currently, there is no universal method for applying Qt color schemes; therefore, this version of the dotfiles does not automate Qt theming.
 
 # Desktop preview:
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/d2879ed6-5dfb-48d6-80bd-9e44d3add6a5" />
-
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/8e0f8726-f91a-40b8-81a4-9148ce37128b" />
-
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/751b8c83-c482-440e-8784-4248cc011111" />
 
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/29f47fe9-e660-47a8-b064-db092acc261b" />
