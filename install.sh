@@ -6,20 +6,15 @@ echo "===================================================="
 
 WORKSPACE=$(mktemp -d)
 cd "$WORKSPACE"
-git clone --quiet --depth 1 --branch Pastel-Integrated \
-    https://github.com/Sobserius/Nude-Hyprland.git .
-
-echo "Repository cloned to temporary workspace."
-
-if [ ! -f "hyprland.conf" ]; then
-    echo "Error: Required configuration files not found in repository root."
-    exit 1
-fi
+   if ! git clone --depth 1 --branch Pastel-Integrated \
+        https://github.com/Sobserius/Nude-Hyprland.git . > /dev/null 2>&1; then
+        error "Failed to download files. Check your internet or the branch name."
+        exit 1
+    fi
 
 mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst ~/.config/waybar
 
 echo "Deploying configuration files..."
-cp colors.conf ~/.config/themes/
 cp dashboard.sh ~/.config/dash/
 cp hypridle.conf ~/.config/hypr/
 cp hyprland.conf ~/.config/hypr/
