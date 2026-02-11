@@ -1,6 +1,36 @@
 #!/bin/bash
 set -e
 
+# ----------------------------------------------------------------------
+# UTILITY FUNCTIONS
+# ----------------------------------------------------------------------
+die() {
+    echo "ERROR: $1" >&2
+    exit 1
+}
+
+safe_mkdir() {
+    mkdir -p "$1"
+    chmod 755 "$1"
+}
+
+safe_write() {
+    local file="$1"
+    local content="$2"
+    echo "$content" | tee "$file" > /dev/null
+    chmod 644 "$file"
+}
+
+safe_write_script() {
+    local file="$1"
+    local content="$2"
+    echo "$content" | tee "$file" > /dev/null
+    chmod 755 "$file"
+}
+
+# ----------------------------------------------------------------------
+# INITIAL PROMPT
+# ----------------------------------------------------------------------
 clear
 read -p "Continue with installation? (y/N): " -n 1 -r
 echo
@@ -24,70 +54,104 @@ git clone --quiet --depth 1 --branch Pastel-Integrated \
 
 cd source_files
 
+# ----------------------------------------------------------------------
+# CREATE DIRECTORY STRUCTURE WITH PROPER PERMISSIONS
+# ----------------------------------------------------------------------
 echo "Creating folders..."
-mkdir -p ~/.config/themes/tools ~/.config/dash ~/.config/hypr ~/.config/dunst ~/.config/waybar
+safe_mkdir ~/.config/themes/tools
+safe_mkdir ~/.config/dash
+safe_mkdir ~/.config/hypr
+safe_mkdir ~/.config/dunst
+safe_mkdir ~/.config/waybar
 
 # ----------------------------------------------------------------------
-# KEYBOARD LAYOUT CONFIGURATION
+# HYPRIAND.CONF CONFIGURATION – SKIPPABLE
 # ----------------------------------------------------------------------
 echo ""
-echo "Keyboard Layout Configuration"
-echo "1) Single layout (monolingual)"
-echo "2) Multiple layouts (bilingual / multilingual)"
+echo "Hyprland Configuration"
+echo "Do you want to install / update hyprland.conf?"
+echo "1) Yes – configure keyboard layout (recommended for new installs)"
+echo "2) No  – keep existing hyprland.conf (skip completely)"
 echo -n "Enter choice [1-2]: "
-read kb_choice
+read hypr_choice
 
-if [ "$kb_choice" = "1" ]; then
-    echo -n "Enter your keyboard layout (default: us): "
-    read kb_layout
-    if [ -z "$kb_layout" ]; then
-        kb_layout="us"
-    fi
-    kb_options=""
-    layouts_count=1
-else
-    echo -n "Enter your keyboard layouts (comma-separated, e.g., us,ru,cz): "
-    read kb_layout
-    if [ -z "$kb_layout" ]; then
-        kb_layout="us,ru"
-    fi
-    kb_options="grp:alt_shift_toggle"
-    layouts_count=$(echo "$kb_layout" | tr ',' '\n' | wc -l)
-fi
+if [ "$hypr_choice" = "1" ]; then
+    # Keyboard layout configuration
+    echo ""
+    echo "Keyboard Layout Configuration"
+    echo "1) Single layout (monolingual)"
+    echo "2) Multiple layouts (bilingual / multilingual)"
+    echo -n "Enter choice [1-2]: "
+    read kb_choice
 
-# ----------------------------------------------------------------------
-# HYPRLAND.CONF GENERATION
-# ----------------------------------------------------------------------
-if [ -f "hyprland.conf" ]; then
-    echo "Configuring Hyprland keyboard settings..."
     if [ "$kb_choice" = "1" ]; then
-        sed -e "s/kb_layout = us,ru/kb_layout = $kb_layout/" \
-            -e '/kb_options = grp:alt_shift_toggle/d' \
-            hyprland.conf > ~/.config/hypr/hyprland.conf
+        echo -n "Enter your keyboard layout (default: us): "
+        read kb_layout
+        [ -z "$kb_layout" ] && kb_layout="us"
+        kb_options=""
+        layouts_count=1
     else
-        sed "s/kb_layout = us,ru/kb_layout = $kb_layout/" \
-            hyprland.conf | \
-        sed "/kb_layout = $kb_layout/a\\
+        echo -n "Enter your keyboard layouts (comma-separated, e.g., us,ru,cz): "
+        read kb_layout
+        [ -z "$kb_layout" ] && kb_layout="us,ru"
+        kb_options="grp:alt_shift_toggle"
+        layouts_count=$(echo "$kb_layout" | tr ',' '\n' | wc -l)
+    fi
+
+    if [ -f "hyprland.conf" ]; then
+        echo "Configuring Hyprland keyboard settings..."
+        if [ "$kb_choice" = "1" ]; then
+            sed -e "s/kb_layout = us,ru/kb_layout = $kb_layout/" \
+                -e '/kb_options = grp:alt_shift_toggle/d' \
+                hyprland.conf > ~/.config/hypr/hyprland.conf.tmp
+        else
+            sed "s/kb_layout = us,ru/kb_layout = $kb_layout/" \
+                hyprland.conf | \
+            sed "/kb_layout = $kb_layout/a\\
 kb_options = $kb_options" \
-            > ~/.config/hypr/hyprland.conf
+                > ~/.config/hypr/hyprland.conf.tmp
+        fi
+        mv ~/.config/hypr/hyprland.conf.tmp ~/.config/hypr/hyprland.conf
+        chmod 644 ~/.config/hypr/hyprland.conf
+        echo "hyprland.conf updated."
+    else
+        echo "Warning: hyprland.conf not found in repository – skipping."
     fi
 else
-    echo "Warning: hyprland.conf not found in repository"
+    echo "Skipping hyprland.conf configuration. Keeping existing file."
+    layouts_count=1  # default to monolingual for Waybar (user can still have multiple layouts, but we don't know)
+    # We don't know the user's actual layout count, so we default to monolingual in Waybar.
+    # Advanced users can edit Waybar config manually.
 fi
 
 # ----------------------------------------------------------------------
-# COPY BASE CONFIGURATION FILES
+# COPY ALL OTHER CONFIGURATION FILES (except hyprland.conf)
 # ----------------------------------------------------------------------
-echo "Copying files..."
-cp colors.conf ~/.config/themes/ 2>/dev/null || true
-cp dashboard.sh ~/.config/dash/ 2>/dev/null || true
-cp hypridle.conf ~/.config/hypr/ 2>/dev/null || true
-cp hyprlock-colors.conf ~/.config/hypr/ 2>/dev/null || true
-cp hyprlock.conf ~/.config/hypr/ 2>/dev/null || true
-cp launcher.sh ~/.config/dash/ 2>/dev/null || true
-cp picker.sh ~/.config/themes/tools/ 2>/dev/null || true
-cp screenshot.sh ~/.config/dash/ 2>/dev/null || true
-cp sync.sh ~/.config/themes/tools/ 2>/dev/null || true
+echo "Copying other configuration files..."
+
+copy_if_exists() {
+    if [ -f "$1" ]; then
+        local dest="$2"
+        local dest_file="$dest/$(basename "$1")"
+        cp "$1" "$dest_file" 2>/dev/null || true
+        chmod 644 "$dest_file" 2>/dev/null || true
+    fi
+}
+
+copy_if_exists colors.conf ~/.config/themes/
+copy_if_exists dashboard.sh ~/.config/dash/
+copy_if_exists hypridle.conf ~/.config/hypr/
+copy_if_exists hyprlock-colors.conf ~/.config/hypr/
+copy_if_exists hyprlock.conf ~/.config/hypr/
+copy_if_exists launcher.sh ~/.config/dash/
+copy_if_exists picker.sh ~/.config/themes/tools/
+copy_if_exists style.css ~/.config/waybar/
+copy_if_exists screenshot.sh ~/.config/dash/
+copy_if_exists config ~/.config/waybar/
+copy_if_exists sync.sh ~/.config/themes/tools/
+
+# Make scripts executable
+chmod 755 ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 2>/dev/null || true
 
 # ----------------------------------------------------------------------
 # WAYBAR CONFIGURATION SELECTION
@@ -100,13 +164,12 @@ echo "3) Skip Waybar setup"
 echo -n "Enter choice [1-3]: "
 read waybar_choice
 
-# ----------------------------------------------------------------------
-# DEPLOY WAYBAR CONFIG AND STYLE.CSS
-# ----------------------------------------------------------------------
 if [ "$waybar_choice" = "1" ] || [ "$waybar_choice" = "2" ]; then
-    # Always deploy the style.css
+    # ------------------------------------------------------------------
+    # DEPLOY WAYBAR STYLE.CSS
+    # ------------------------------------------------------------------
     echo "Deploying Waybar style.css..."
-    cat > ~/.config/waybar/style.css << 'EOF'
+    safe_write ~/.config/waybar/style.css "$(cat << 'EOF'
 @import "colors.css";
 
 * {
@@ -154,13 +217,16 @@ window#waybar {
     color: @fg;
 }
 EOF
+)"
 
-    # Deploy Waybar config based on device and language count
+    # ------------------------------------------------------------------
+    # DEPLOY WAYBAR CONFIG (with correct language module)
+    # ------------------------------------------------------------------
     if [ "$waybar_choice" = "1" ]; then
-        # Laptop config
+        # Laptop
         if [ "$layouts_count" -gt 1 ]; then
             echo "Configuring Waybar for Laptop (multilingual)..."
-            cat > ~/.config/waybar/config << 'EOF'
+            safe_write ~/.config/waybar/config "$(cat << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
@@ -205,9 +271,10 @@ EOF
     }
 }
 EOF
+)"
         else
             echo "Configuring Waybar for Laptop (monolingual)..."
-            cat > ~/.config/waybar/config << 'EOF'
+            safe_write ~/.config/waybar/config "$(cat << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
@@ -249,12 +316,13 @@ EOF
     }
 }
 EOF
+)"
         fi
     else
-        # Desktop PC config
+        # Desktop PC
         if [ "$layouts_count" -gt 1 ]; then
             echo "Configuring Waybar for Desktop PC (multilingual)..."
-            cat > ~/.config/waybar/config << 'EOF'
+            safe_write ~/.config/waybar/config "$(cat << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
@@ -302,9 +370,10 @@ EOF
     }
 }
 EOF
+)"
         else
             echo "Configuring Waybar for Desktop PC (monolingual)..."
-            cat > ~/.config/waybar/config << 'EOF'
+            safe_write ~/.config/waybar/config "$(cat << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
@@ -349,23 +418,21 @@ EOF
     }
 }
 EOF
+)"
         fi
+    fi
+
+    # Restart Waybar if running
+    if pgrep -x "waybar" > /dev/null; then
+        killall -SIGUSR2 waybar 2>/dev/null || true
     fi
 else
     echo "Skipping Waybar configuration..."
 fi
 
 # ----------------------------------------------------------------------
-# FINAL TOUCHES
+# CLEANUP
 # ----------------------------------------------------------------------
-chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 2>/dev/null || true
-
-# Restart Waybar if it's running
-if pgrep -x "waybar" > /dev/null && [ "$waybar_choice" != "3" ]; then
-    killall -SIGUSR2 waybar 2>/dev/null || true
-fi
-
-# Cleanup
 cd /
 rm -rf "$WORKSPACE"
 
@@ -374,9 +441,13 @@ echo "===================================================="
 echo "Installation complete!"
 echo ""
 echo "Configuration summary:"
-echo "- Keyboard layout(s): $kb_layout"
-if [ "$kb_choice" = "2" ]; then
-    echo "- Layout switching: Alt+Shift"
+if [ "$hypr_choice" = "1" ]; then
+    echo "- Keyboard layout(s): $kb_layout"
+    if [ "$kb_choice" = "2" ]; then
+        echo "- Layout switching: Alt+Shift"
+    fi
+else
+    echo "- Hyprland config: skipped (existing file kept)"
 fi
 if [ "$waybar_choice" = "1" ] || [ "$waybar_choice" = "2" ]; then
     echo "- Waybar: $([ "$waybar_choice" = "1" ] && echo "Laptop" || echo "Desktop PC")"
@@ -385,4 +456,4 @@ fi
 echo ""
 echo "Note: System dependencies are not installed by this script."
 echo "A system reboot is recommended before starting Hyprland."
-echo "===================================================="b 
+echo "===================================================="
