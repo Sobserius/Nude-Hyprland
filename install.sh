@@ -39,9 +39,18 @@ cp screenshot.sh ~/.config/dash/ 2>/dev/null || true
 cp config ~/.config/waybar/ 2>/dev/null || true
 cp sync.sh ~/.config/themes/tools/ 2>/dev/null || true
 
-if [ -d /sys/class/power_supply/BAT0 ] || [ -d /sys/class/power_supply/BAT1 ]; then
-    echo "Laptop detected"
-    cat > ~/.config/waybar/config << 'EOF'
+echo "Select Waybar configuration:"
+echo "1) Laptop"
+echo "2) Desktop PC"
+echo "3) Skip"
+echo -n "Enter choice [1-3]: "
+
+read choice
+
+case $choice in
+    1)
+        echo "Configuring Waybar for Laptop..."
+        cat > ~/.config/waybar/config << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
@@ -91,9 +100,10 @@ if [ -d /sys/class/power_supply/BAT0 ] || [ -d /sys/class/power_supply/BAT1 ]; t
     }
 }
 EOF
-else
-    echo "Desktop PC detected"
-    cat > ~/.config/waybar/config << 'EOF'
+        ;;
+    2)
+        echo "Configuring Waybar for Desktop PC..."
+        cat > ~/.config/waybar/config << 'EOF'
 {
     "layer": "bottom",
     "reload_style_on_change": true,
@@ -147,7 +157,13 @@ else
     }
 }
 EOF
-fi
+        ;;
+    3|*)
+        echo "Skipping Waybar configuration..."
+        ;;
+esac
+
+
 chmod +x ~/.config/themes/tools/*.sh ~/.config/dash/*.sh 2>/dev/null || true
 
 cd /
