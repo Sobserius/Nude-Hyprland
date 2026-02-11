@@ -57,16 +57,7 @@ fi
     # --- HYPRLOCK COLORS ---
     printf "\$bg = rgb($BG)\n\$fg = rgb($FG)\n\$fg_alpha = rgba(${FG}ee)\n" > "$HYPRLOCK"
 
-    # --- BACKGROUND TASKS (Wallpaper/GTK) ---
-    (
-        RES=$(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | "\(.width)x\(.height)"')
-        magick -size "${RES:-$RES}" xc:"#$BG" "$TEMP_BG"
-        
-        ANIM=$(hyprctl -j getoption animations:enabled | jq '.int')
-        [ "$ANIM" -eq 1 ] && TRANS="top" || TRANS="none"
-        
-        swww img "$TEMP_BG" --transition-type "$TRANS" --transition-duration 0.5 --transition-bezier .15,0,.1,1  2>/dev/null
-    ) &
+
 
 
 
