@@ -3,9 +3,19 @@
 
 Arch Linux example:
 ```console
-sudo pacman -S hyprland kitty dunst waybar fzf jq inotify-tools imagemagick swww grim slurp hyprpicker hyprlock wl-clipboard playerctl brightnessctl j4-dmenu-desktop adw-gtk-theme chafa pastel
+sudo pacman -S hyprland kitty dunst waybar fzf jq inotify-tools \
+imagemagick swww grim slurp hyprpicker hyprlock \
+wl-clipboard playerctl brightnessctl j4-dmenu-desktop \
+adw-gtk-theme chafa pastel
 ```
-
+Fedora|Rhel|CentOS example:
+```console
+sudo dnf install -y \
+    hyprland kitty dunst waybar fzf jq inotify-tools \
+    ImageMagick swww grim slurp hyprpicker hyprlock \
+    wl-clipboard playerctl brightnessctl j4-dmenu-desktop \
+    adw-gtk3-theme chafa pastel
+```
 # Installation:
 > [!CAUTION]
 > The following script overwrites existing hyprland.conf, dunstrc and waybar files. Backup before proceeding.
