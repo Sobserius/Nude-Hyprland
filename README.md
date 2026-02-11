@@ -32,7 +32,11 @@ Recommended kitty themes archive for additional colorschemes: https://github.com
 
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/751b8c83-c482-440e-8784-4248cc011111" />
 
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/29f47fe9-e660-47a8-b064-db092acc261b" />
+
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/f7acba08-83fa-4d1f-aad2-825c6e15943a" />
+
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/0d3da98d-d9f4-4592-a32d-56251aee5beb" />
 
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/753d45e2-b6e1-46ec-b075-447188684fa2" />
 
