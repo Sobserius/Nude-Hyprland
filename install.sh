@@ -11,7 +11,7 @@ git clone --quiet --depth 1 --branch Pastel-Integrated \
 
 echo "Repository cloned to temporary workspace."
 
-if [ ! -f "hyprland.conf" ] || [ ! -f "colors.conf" ]; then
+if [ ! -f "hyprland.conf" ]; then
     echo "Error: Required configuration files not found in repository root."
     exit 1
 fi
