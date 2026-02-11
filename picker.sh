@@ -88,6 +88,34 @@ CHOICE=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f \( -name "*.jpg" -o -name "*.
         fi
     done
 
+    declare -a BASE_COLORS=(
+        "000000" "ff0000" "00ff00" "ffff00" "0000ff" "ff00ff" "00ffff" "ffffff"
+        "555555" "ff5555" "55ff55" "ffff55" "5555ff" "ff55ff" "55ffff" "ffffff"
+    )
+
+    if command -v pastel >/dev/null 2>&1; then
+        DOMINANT_COLOR=$(pastel distinct -n 1 "$SELECTED" 2>/dev/null | pastel format hex | tr -d '#')
+        if [ -z "$DOMINANT_COLOR" ]; then
+            DOMINANT_COLOR=$(magick "$SELECTED" -resize 100x100 -colors 1 -format "%c" histogram:info: 2>/dev/null | grep -oE '#[0-9A-Fa-f]{6}' | tr -d '#')
+        fi
+        
+        for i in {1..6}; do
+            BASE="${BASE_COLORS[$i]}"
+            TINTED=$(pastel mix "#$BASE" "#$DOMINANT_COLOR" --fraction 0.6 2>/dev/null | pastel format hex | tr -d '#')
+            if [ -n "$TINTED" ]; then
+                COLORS[$i]="$TINTED"
+            fi
+        done
+        
+        for i in {9..14}; do
+            BASE="${BASE_COLORS[$i]}"
+            TINTED=$(pastel mix "#$BASE" "#$DOMINANT_COLOR" --fraction 0.6 2>/dev/null | pastel format hex | tr -d '#')
+            if [ -n "$TINTED" ]; then
+                COLORS[$i]="$TINTED"
+            fi
+        done
+    fi
+
     if command -v pastel >/dev/null 2>&1; then
         ALL_COLORS_TEMP="/tmp/all_colors_$$.txt"
         
