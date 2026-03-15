@@ -22,7 +22,7 @@ sudo dnf install -y hyprland kitty dunst waybar fzf jq inotify-tools \
 > The following script overwrites existing hyprland.conf, dunstrc and waybar files. Backup before proceeding.
 
 ```console
-bash <(curl -s "https://raw.githubusercontent.com/Sobserius/Nude-Hyprland/refs/heads/Pastel-Integrated/install.sh")
+curl -s "https://raw.githubusercontent.com/Sobserius/Nude-Hyprland/refs/heads/Pastel-Integrated/install.sh" | bash
 ```
 > [!NOTE]
 >  Reboot required after execution.
